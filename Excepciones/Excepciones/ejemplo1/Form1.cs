@@ -51,13 +51,9 @@ namespace ejemplo1
 
         private void btnDividir_Click(object sender, EventArgs e)
         {
-            int a, b, r;
             try
-            {
-                a = int.Parse(txtUno.Text);
-                b = int.Parse(txtDos.Text);
-                r = a / b;
-                lblResultado.Text = "= " + r;
+            {                
+                lblResultado.Text = "= " + calcular();
             }
             catch (FormatException ex)
             {
@@ -69,6 +65,29 @@ namespace ejemplo1
             }
             catch (OverflowException ex){
                 MessageBox.Show("El resultado es un número muy grande...");
+            }
+            finally
+            {
+                // se ejecuta si es que existen excepciones o no
+                // operación sensible... por ejemplo interacción con base de datos.
+
+            }
+        }
+
+        private int calcular()
+        {
+            int a, b, r;
+            try
+            {
+                a = int.Parse(txtUno.Text);
+                b = int.Parse(txtDos.Text);
+                r = a / b;
+                return r;
+            }
+            catch (Exception ex)
+            {
+                // por ejemplo registro de error en un archivo
+                throw ex; // lanzar la excepción
             }
         }
 
