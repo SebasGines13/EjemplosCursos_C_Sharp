@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace winform_app
 {
-    public partial class Form1 : Form
+    public partial class frmPokemons : Form
     {
-        public Form1()
+        public frmPokemons()
         {
             InitializeComponent();
+        }
+
+        private void frmPokemons_Load(object sender, EventArgs e)
+        {
+            PokemonNegocio negocio = new PokemonNegocio();
+            dgvPokemons.DataSource = negocio.listar();
         }
     }
 }
