@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using dominio;
 
-namespace winform_app
+namespace negocio
 {
-    internal class PokemonNegocio
+    public class PokemonNegocio
     {
         // clase para el acceso a datos para la clase Pokemon
         public List<Pokemon> listar()
@@ -21,7 +22,7 @@ namespace winform_app
             {
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "SELECT Numero, Nombre, Descripcion, UrlImagen from POKEMONS";
+                comando.CommandText = "SELECT Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad from POKEMONS P inner join ELEMENTOS E on E.Id = P.IdTipo inner join ELEMENTOS D on D.Id = P.IdDebilidad";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -34,6 +35,10 @@ namespace winform_app
                     aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];//aux.Descripcion = lector.GetString(2);
                     aux.UrlImagen = (string)lector["UrlImagen"];
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.Descripcion = (string)lector["Tipo"];
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.Descripcion = (string)lector["Debilidad"];
                     lista.Add(aux);
                 }
                 return lista;

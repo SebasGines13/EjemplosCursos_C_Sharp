@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dominio;
+using negocio;
 
 namespace winform_app
 {
@@ -23,6 +25,7 @@ namespace winform_app
             PokemonNegocio negocio = new PokemonNegocio();
             listaPokemon = negocio.listar();
             dgvPokemons.DataSource = listaPokemon;
+            dgvPokemons.Columns["UrlImagen"].Visible = false;
             cargarImagen(listaPokemon[0].UrlImagen);
         }
 
