@@ -34,7 +34,10 @@ namespace negocio
                     aux.Numero = lector.GetInt32(0);
                     aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];//aux.Descripcion = lector.GetString(2);
-                    aux.UrlImagen = (string)lector["UrlImagen"];
+                    //if(!(lector.IsDBNull(lector.GetOrdinal("UrlImagen"))))
+                    //    aux.UrlImagen = (string)lector["UrlImagen"];
+                    if (!(lector["UrlImagen"] is DBNull))
+                        aux.UrlImagen = (string)lector["UrlImagen"];
                     aux.Tipo = new Elemento();
                     aux.Tipo.Descripcion = (string)lector["Tipo"];
                     aux.Debilidad = new Elemento();
@@ -50,6 +53,27 @@ namespace negocio
             finally
             {
                 conexion.Close();
+            }
+
+        }
+
+        public void Agregar(Pokemon poke)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO POKEMONS (Numero, Nombre, Descripcion, Activo, IdTipo, IdDebilidad) values (" + poke.Numero + ", '"+ poke.Nombre + "', '"+ poke.Descripcion + "', 1, @IdTipo, @IdDebilidad)");
+                datos.setearParametro("@IdTipo", poke.Tipo.Id);
+                datos.setearParametro("@IdDebilidad", poke.Debilidad.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
 
         }
