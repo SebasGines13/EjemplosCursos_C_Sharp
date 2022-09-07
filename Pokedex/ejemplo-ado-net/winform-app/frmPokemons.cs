@@ -39,6 +39,7 @@ namespace winform_app
                 listaPokemon = negocio.listar();
                 dgvPokemons.DataSource = listaPokemon;
                 dgvPokemons.Columns["UrlImagen"].Visible = false;
+                dgvPokemons.Columns["Id"].Visible = false;
                 cargarImagen(listaPokemon[0].UrlImagen);
             }
             catch (Exception ex)
@@ -66,5 +67,34 @@ namespace winform_app
             cargar();
         }
 
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Pokemon seleccionado;
+            seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+            
+            frmAltaPokemon modificar = new frmAltaPokemon(seleccionado);
+            modificar.ShowDialog();
+            cargar();
+        }
+
+        private void btnEliminarFisico_Click(object sender, EventArgs e)
+        {
+            PokemonNegocio negocio = new PokemonNegocio();
+            Pokemon seleccionado;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro que quiere eliminarlo físicamente?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+                    negocio.Eliminar(seleccionado.Id);
+                    cargar();
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
