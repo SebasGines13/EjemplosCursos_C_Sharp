@@ -79,17 +79,31 @@ namespace winform_app
 
         private void btnEliminarFisico_Click(object sender, EventArgs e)
         {
+            eliminar();
+        }
+
+        private void btnEliminarLogico_Click(object sender, EventArgs e)
+        {
+            eliminar(true);
+        }
+
+        private void eliminar(bool logico = false)
+        {
             PokemonNegocio negocio = new PokemonNegocio();
             Pokemon seleccionado;
             try
             {
-                DialogResult respuesta = MessageBox.Show("¿Está seguro que quiere eliminarlo físicamente?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(respuesta == DialogResult.Yes)
+                DialogResult respuesta = MessageBox.Show("¿Está seguro que quiere eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
                 {
                     seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-                    negocio.Eliminar(seleccionado.Id);
+                    
+                    if(logico)
+                        negocio.EliminarLogico(seleccionado.Id);
+                    else
+                        negocio.Eliminar(seleccionado.Id);
                     cargar();
-                }                
+                }
             }
             catch (Exception ex)
             {

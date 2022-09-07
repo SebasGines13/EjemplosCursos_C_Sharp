@@ -22,7 +22,7 @@ namespace negocio
             {
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "SELECT Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad, P.Id from POKEMONS P inner join ELEMENTOS E on E.Id = P.IdTipo inner join ELEMENTOS D on D.Id = P.IdDebilidad";
+                comando.CommandText = "SELECT Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad, P.Id from POKEMONS P inner join ELEMENTOS E on E.Id = P.IdTipo inner join ELEMENTOS D on D.Id = P.IdDebilidad WHERE P.Activo = 1";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -113,6 +113,25 @@ namespace negocio
             try
             {
                 datos.setearConsulta("DELETE FROM POKEMONS WHERE ID = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarLogico(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE POKEMONS SET ACTIVO = 0 WHERE ID = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
