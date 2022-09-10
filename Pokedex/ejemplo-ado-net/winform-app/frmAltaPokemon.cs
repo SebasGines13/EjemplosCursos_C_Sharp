@@ -17,6 +17,7 @@ namespace winform_app
     public partial class frmAltaPokemon : Form
     {
         private Pokemon pokemon = null;
+        private OpenFileDialog archivo = null;
         
         public frmAltaPokemon()
         {
@@ -65,7 +66,10 @@ namespace winform_app
                 {
                     negocio.Agregar(pokemon);
                     MessageBox.Show("Agregado exitosamente...");
-                }            
+                }   
+                // Guardo imagen si la levantó localmente
+                if(archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+                    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-folder"] + archivo.SafeFileName);
                 Close();
             }
             catch (Exception ex)
@@ -123,14 +127,14 @@ namespace winform_app
 
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog archivo = new OpenFileDialog();
-            archivo.Filter = "jpg|*.jpg";
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg|png|*.png";
             if(archivo.ShowDialog() == DialogResult.OK)
             {
                 txtUrlImagen.Text = archivo.FileName;
                 cargarImagen(archivo.FileName);
                 // guardo la imagen
-                File.Copy(archivo.FileName, ConfigurationManager.AppSettings[""]);
+                //File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-folder"] + archivo.SafeFileName);
             }
 
         }
