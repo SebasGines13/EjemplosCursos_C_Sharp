@@ -31,11 +31,6 @@ namespace winform_app
             Text = "Modificar Pokemon";
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -100,6 +95,11 @@ namespace winform_app
                     cboTipo.SelectedValue = pokemon.Tipo.Id;
                     cboDebilidad.SelectedValue = pokemon.Debilidad.Id;
                 }
+                else
+                {
+                    cboTipo.SelectedIndex = -1;
+                    cboDebilidad.SelectedIndex = -1;
+                }
 
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace winform_app
             {
                 pbxPokemon.Load(imagen);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 pbxPokemon.Load("https://efectocolibri.com/wp-content/uploads/2021/01/placeholder.png");
             }

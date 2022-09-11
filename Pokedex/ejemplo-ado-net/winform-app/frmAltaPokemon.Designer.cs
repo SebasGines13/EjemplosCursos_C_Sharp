@@ -55,7 +55,6 @@
             this.lblNumero.Size = new System.Drawing.Size(47, 13);
             this.lblNumero.TabIndex = 0;
             this.lblNumero.Text = "Número:";
-            this.lblNumero.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblNombre
             // 
