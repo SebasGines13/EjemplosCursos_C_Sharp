@@ -54,6 +54,8 @@
                         <li><a runat="server" href="~/">Inicio</a></li>
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
+                        <li><a runat="server" href="~/ejemploASPX">Ejemplo ASPX</a></li>                        
+                        <li><a runat="server" href="~/ejemploConMaster.aspx">Ejemplo con Master</a></li>
                     </ul>
                 </div>
             </div>

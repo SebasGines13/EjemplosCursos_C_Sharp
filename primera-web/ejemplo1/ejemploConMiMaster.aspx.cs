@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace ejemplo1
 {
-    public partial class About : Page
+    public partial class Formulario_web11 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Title = "Hola, qué tal??";
+
         }
     }
 }
